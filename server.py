@@ -5,4 +5,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return send_from_directory('MovieFinder/WebContent/', index.html)
+    return 'Hello World!'
