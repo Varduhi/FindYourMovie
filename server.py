@@ -37,5 +37,13 @@ def getGenres():
     genres = db.genre_collection.find_one()
     return json.dumps({"genres":genres['genres']})
 
+@app.route('/movies')
+def getMovies():    
+    movies = db.movie_collection.find()
+    movies = list(movies)
+    for movie in movies:
+	    movie.pop('_id')
+    return json.dumps({"movies":movies})
+
 if __name__ == '__main__':
     app.run(debug=True)
