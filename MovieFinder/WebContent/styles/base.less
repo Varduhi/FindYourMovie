@@ -26,6 +26,18 @@
 	-moz-box-shadow:    @string;
 	box-shadow:         @string;
 }
+.word-break{
+    overflow: hidden; 
+    word-wrap: normal; 
+    word-break: normal; 
+    white-space: -moz-pre-wrap !important;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap; 
+    white-space: pre-wrap;
+    white-space: pre-line; 
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
 
 /* ------------------------------------ 
 	CSS CLASSES
@@ -123,6 +135,8 @@ a
 	padding-left:10px;
     padding-top:10px;
     font-size:14px;
+    max-width:1050px;
+    .word-break;
 }
 .inner-left .title
 {
