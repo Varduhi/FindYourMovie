@@ -23,6 +23,18 @@ if MONGO_URL:
 def index():
     return flask.send_from_directory('MovieFinder/WebContent/','index.html')
 
+@app.route('/dataVisualization.html')
+def dataViz():
+    return flask.send_from_directory('MovieFinder/WebContent/','dataVisualization.html')
+
+@app.route('/channel.html')
+def channel():
+    return flask.send_from_directory('MovieFinder/WebContent/','channel.html')
+
+@app.route('/test')
+def test():
+    return flask.send_from_directory('MovieFinder/WebContent/','test.html')
+
 @app.route('/WEB-INF/lib/<path:filename>')
 def libs(filename):
     return flask.send_from_directory('MovieFinder/WebContent/WEB-INF/lib',filename)
@@ -31,6 +43,10 @@ def libs(filename):
 @app.route('/styles/<path:filename>')
 def styles(filename):
     return flask.send_from_directory('MovieFinder/WebContent/styles',filename)
+
+@app.route('/js/<path:filename>')
+def js(filename):
+    return flask.send_from_directory('MovieFinder/WebContent/js',filename)
 
 @app.route('/genres')
 def getGenres():
