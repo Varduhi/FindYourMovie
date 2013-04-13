@@ -36,8 +36,19 @@ body
 {
     margin:0;
     padding:0;
-    background-color:#CCC;
+    background-color:#f1eedb;
+}
+body, span, div, input
+{
     font:12px Arial;
+}
+input
+{
+    border:0;
+}
+a
+{
+    text-decoration:none;
 }
 .container
 {
@@ -46,6 +57,7 @@ body
     margin:0 auto;
     background-color:#c3c536;
     min-height:800px;
+    margin-bottom:30px;
 }
 .top-container
 {
@@ -53,10 +65,74 @@ body
     height:394px;
     background:url(img/top-bg-1.png) no-repeat;
 }
-.search
+.login
 {
     position:relative;
-    left:330px;
-    top:210px;
+    left:900px;
+    top:30px;
     cursor:pointer;
+}
+.fb
+{
+    position:relative;
+    left:1000px;
+    top:40px;
+    color:#FFFFFF;
+}
+.submit
+{
+    background:url(img/submit-bg.png) repeat-x;
+    cursor:pointer;
+    box-shadow:none;
+    color:white;
+}
+.top-container .login-input
+{
+    background:url(img/input-bg.png) repeat-x;
+    
+}
+.top-container .login-input, .submit
+{
+    font-size: 10px;
+    height:20px;
+}
+.items
+{
+    float:left; 
+    background-color:#FFFFFF; 
+    height:30px; 
+    width:200px;
+    margin:10px;
+}
+
+.inner{
+	width:100%; 
+	background-color:#8a8b44; 
+	padding:0; 
+	overflow:hidden;	
+}
+.inner-left{
+	float:left; 
+	padding-left:10px;
+}
+.inner-right{
+	float:right; 
+	padding-right:10px;
+}
+.inner-menu{
+	width:100%;
+	height:75px;
+	background-color:#83651d;	
+	display:none;
+	border-top:1px solid #2c2c2c;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow:  	0 1px 2px rgba(0, 0, 0, 0.2);
+	box-shadow:         0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.click-to-open{
+	background-color:#4f5354; 
+	height:21px; 
+	padding:6px 5px 0; 
+	float:left;
+	cursor:pointer;
 }
