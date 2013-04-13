@@ -21,12 +21,11 @@
 	-webkit-border-radius: 	@radius;
 	-moz-border-radius: 	@radius;
 }
-.box-shadow (@string: 1px 1px 0 rgba(155, 155, 155, 0.4) ) {
+.box-shadow (@string: 0 1px 8px 1px rgba(0, 0, 0, 0.6) ) {
 	-webkit-box-shadow: @string;
 	-moz-box-shadow:    @string;
 	box-shadow:         @string;
 }
-
 
 /* ------------------------------------ 
 	CSS CLASSES
@@ -99,22 +98,36 @@ a
 .items
 {
     float:left; 
-    background-color:#FFFFFF; 
-    height:30px; 
+    background-color:#e6e65c; 
+    min-height:30px; 
+    height:auto;
     width:200px;
     margin:10px;
+    padding:4px;
+    color:#0c434e;
+    
+    -moz-box-shadow: inset 0 1px 5px 1px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 1px 5px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 5px 1px rgba(0, 0, 0, 0.3);
 }
-
 .inner{
 	width:100%; 
-	background-color:#8a8b44; 
+	background:url("img/inner-bg.png") repeat-x; 
 	padding:0; 
 	overflow:hidden;	
+    height:37px;
 }
 .inner-left{
 	float:left; 
 	padding-left:10px;
+    padding-top:10px;
+    font-size:14px;
 }
+.inner-left .title
+{
+    font-weight:bold;
+}
+
 .inner-right{
 	float:right; 
 	padding-right:10px;
@@ -122,17 +135,17 @@ a
 .inner-menu{
 	width:100%;
 	height:75px;
-	background-color:#83651d;	
+	background: url("img/pattern-bg.png") repeat;	
 	display:none;
-	border-top:1px solid #2c2c2c;
-	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow:  	0 1px 2px rgba(0, 0, 0, 0.2);
-	box-shadow:         0 1px 2px rgba(0, 0, 0, 0.2);
+	.box-shadow;
 }
 .click-to-open{
-	background-color:#4f5354; 
 	height:21px; 
-	padding:6px 5px 0; 
+	padding-top:10px; 
+    padding-right:6px; 
 	float:left;
 	cursor:pointer;
+    color:#0c434e;
+    font-size:14px;
+    
 }
