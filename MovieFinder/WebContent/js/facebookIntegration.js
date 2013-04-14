@@ -25,27 +25,25 @@
   function login() {
     FB.login(function(response) {
         if (response.authResponse) {
-  	       //getData();
-	         window.location.href = "http://web-of-movies.herokuapp.com/dataVisualization.html";
+  	         getData();
+	        // window.location.href = "http://web-of-movies.herokuapp.com/dataVisualization.html";
         }
     });
 }
 
-function getData() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-       		document.getElementById('account-info').innerHTML = (
-	 	        response.name +
-	        ' <button class="btn" onclick="FB.logout(function() { document.location.reload(); });">Logout</button>'
-	      );
+  function getData() {
+	    console.log('Welcome!  Fetching your information.... ');
+	    FB.api('/me', function(response) {
+	  			 
+	    	   name= response.name ;
+			  
+			   FB.api('/me/picture?width=80&height=80',  function(response) {
 
+				url=response.data.url ;
+				window.location.href = "https://dl.dropboxusercontent.com/u/37485630/app/MovieFinder/WebContent/dataVisualization.html" + "?" + "name=" + name + "&url=" +url;	
+	  });
     });
-
-	FB.api('/me/picture?width=80&height=80',  function(response) {
-	     document.getElementById('account-photo').innerHTML = (
-	        '<img src="' + response.data.url + '"> ');
-  });
-}
+	}
 
   // Load the SDK Asynchronously
 // Load the SDK Asynchronously
