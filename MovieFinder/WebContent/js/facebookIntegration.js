@@ -40,7 +40,7 @@
 			   FB.api('/me/picture?width=80&height=80',  function(response) {
 
 				url=response.data.url ;
-				window.location.href = "https://dl.dropboxusercontent.com/u/37485630/app/MovieFinder/WebContent/dataVisualization.html" + "?" + "name=" + name + "&url=" +url;	
+				window.location.href = "http://web-of-movies.herokuapp.com/dataVisualization.html" + "?" + "name=" + name + "&url=" +url;	
 	  });
     });
 	}
