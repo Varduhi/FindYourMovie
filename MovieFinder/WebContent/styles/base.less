@@ -196,7 +196,7 @@ a
 }
 .inner-menu{
 	width:100%;
-	min-height:75px;
+        min-height: 75px;
     height:auto;
     overflow:hidden;
 	background: rgba(195,197,54,0.5) url("img/pattern-bg.png") repeat;	
@@ -205,6 +205,7 @@ a
 }
 .inner-menu .items .desc
 {
+    word-wrap:break-word;
     float:left; 
     max-width:120px;
     font-size:14px;
@@ -233,7 +234,14 @@ a
 .inner-menu .child
 {
     padding-left:10px;
+    cursor: default;
 }
+
+.inner-menu .child:hover {
+    font-weight: bold
+}
+.inner-menu .child:hover 
+
 .inner-menu .child:last-child
 {
     padding-bottom:15px;
