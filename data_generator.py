@@ -10,6 +10,7 @@ conn = pymongo.Connection(MONGO_URL)
 # Get the database
 db = conn[urlparse(MONGO_URL).path[1:]]
 db.movie_collection.drop()
+db.ratings_collection.drop()
 
 def import_data():
     usersFile = open('/Users/nstehr/Desktop/ml-1m/users.dat', 'r')
@@ -54,8 +55,8 @@ def import_data():
         userAge = userRecord[2]
         userJob = userRecord[3]
         movieRecord = movieMap[movieId]
-        movieTitle = movie[1].decode('ascii', 'ignore')
-        genres = movie[2].split('|')
+        movieTitle = movieRecord[1].decode('ascii', 'ignore')
+        genres = movieRecord[2].split('|')
         genres = [genre.rstrip() for genre in genres]
 	    
         db.ratings_collection.insert({"userSex":userSex,"userJob":userJob,"userAge":userAge,"movieTitle":movieTitle,"movieGenres":genres,"rating":ratingValue})
