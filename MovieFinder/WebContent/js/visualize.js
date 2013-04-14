@@ -1,5 +1,5 @@
-var webWidth = 1280;
-var webHeight = 1280;
+var webWidth = 1200;
+var webHeight = 700;
 var link,node,webOfMovies,root;
 
 
@@ -45,7 +45,22 @@ function ready(error, movies, genres) {
 		}
 	}
 
-	root = {"name":"Me","children":genreNodes,"profile":"asdf"};
+    var imageUrl = getUrlVars()['url'];
+	root = {"name":"Me","children":genreNodes,"profile":imageUrl};
+	
+	var defs = webOfMovies.append('svg:defs');
+            defs.append('svg:pattern')
+                .attr('id', 'profile')
+                .attr('patternUnits', 'userSpaceOnUse')
+                .attr('width', '6')
+                .attr('height', '6')
+                .append('svg:image')
+                .attr('xlink:href', 'http://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Mona_Lisa_headcrop.jpg/250px-Mona_Lisa_headcrop.jpg')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', 6)
+				.attr('height', 6);
+	
 	
 	root.fixed = true;
 	root.x = webWidth/2;
@@ -61,7 +76,7 @@ function ready(error, movies, genres) {
 	   
 	});
 
-    console.log(getUrlVars());
+    
 	render();
 }
 
@@ -101,7 +116,7 @@ link = webOfMovies.selectAll("line.link")
 
   // Enter any new nodes.
   node.enter().append("svg:circle")
-      .attr("class", "node")
+      .attr("class", function(d){if(d.name === "Me") return "root"; else return "node"})
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; })
       .attr("r", function(d) { return 10; })
@@ -110,6 +125,8 @@ link = webOfMovies.selectAll("line.link")
       .call(force.drag)
       .append("svg:title")
       .text(getTheTip);
+
+
 
   // Exit any old nodes.
   node.exit().remove();
