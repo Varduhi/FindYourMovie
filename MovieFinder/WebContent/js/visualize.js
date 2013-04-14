@@ -13,14 +13,18 @@ $(document).ready(function() {
 	    .attr("width", webWidth)
 	    .attr("height", webHeight);
 	
-	queue()
-	    .defer(d3.json, "movies")
-	    .defer(d3.json, "genres")
-	    .await(ready);
+	
+		$.getJSON('genres', function(genres) {
+			$.getJSON('movies',function(movies) {
+				ready(movies,genres);
+			});
+		});
+	
+
 
 });
 	
-function ready(error, movies, genres) { 
+function ready(movies, genres) { 
 	 
 	 //process the data into a structure we can feed to the layout
 	 var genreNodes = [];
@@ -63,6 +67,7 @@ function ready(error, movies, genres) {
   force
       .nodes(nodes)
       .links(links)
+      .charge(-500)
       .start();
 
   // Update the links…
