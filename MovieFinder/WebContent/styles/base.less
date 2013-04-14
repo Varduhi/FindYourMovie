@@ -155,8 +155,7 @@ a
     cursor:pointer;
 }
 .inner{
-	width:100%; 
-	background:url("img/inner-bg.png") repeat-x; 
+	width:100%;
 	padding:0; 
 	overflow:hidden;	
     height:37px;
@@ -167,7 +166,7 @@ a
 	padding-left:10px;
     padding-top:10px;
     font-size:14px;
-    max-width:1050px;
+    max-width:1020px;
     min-width:100px;
     .word-break;
 }
@@ -200,7 +199,7 @@ a
 	min-height:75px;
     height:auto;
     overflow:hidden;
-	background: url("img/pattern-bg.png") repeat;	
+	background: rgba(195,197,54,0.5) url("img/pattern-bg.png") repeat;	
 	display:none;
 	.box-shadow;
 }
@@ -292,4 +291,54 @@ line.link {
   fill: none;
   stroke: black;
   stroke-width: 3px;
+}
+
+.dataVis {
+    .container {
+        position: relative;
+        top: -275px;
+        min-height: 500px;
+    }
+
+    .contents_container {
+        position: relative;
+        top: -125px;
+        background: black url('img/top-bg-2.png') no-repeat;
+        padding-top: 45px;
+    }
+    
+    .contents {
+        background: black;
+        min-height: 500px;
+        background: black url('img/top-bg-2.png') no-repeat bottom;
+        padding-bottom: 36px;
+    }
+
+    .menu-container {
+        z-index: 1000;
+        position: relative;
+        top: 2px;
+
+        .menu-container-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:url("img/inner-bg.png") repeat-x;
+            opacity: 0.85;
+        }
+
+        .inner, .inner-left, .inner-right {
+            position: relative;
+        }
+    }
+
+    #webOfMovies {
+        z-index: 100;
+        position: absolute;
+        top: 45px;
+        background: black;
+        bottom: 36px;
+    }
 }
