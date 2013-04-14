@@ -45,7 +45,7 @@ function ready(error, movies, genres) {
 		}
 	}
 
-	root = {"name":"Me","children":genreNodes,"profile":};
+	root = {"name":"Me","children":genreNodes,"profile":"asdf"};
 	
 	root.fixed = true;
 	root.x = webWidth/2;
