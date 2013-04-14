@@ -4,20 +4,47 @@
 (function() {
 	
 	
+    function sendFilters(query) {
+        
+        var params = [];
+        for (var q in query) {
+            if (query[q].length > 0) {
+                var p = encodeURIComponent(query[q].join(','));
+                params.push(q + '=' + p);
+            }
+        }
+        
+        var queryStr = params.join('&');
+        
+        console.log("got paramstr: " + queryStr);
+        
+        
+         $.get("/filter?" + queryStr, function(){
+                if (updateWeb) updateWeb();
+        });
+        
+    }
 
     function refreshFiltersList(root) {
             
         var summary = [];
         var shown = 0;
         
+        var query = {};
+        
         for (var i=0; i<root.filters.length; i++) {
             
             var filter = root.filters[i];
             var notadded = 0;
             
+            if (!query[filter.tag]) {
+                query[filter.tag] = [];
+            }
+            
             for (var j=0; j<filter.values.length; j++) {
                 if (filter.values[j].added()) {
                     summary.push(filter.values[j].text);
+                    query[filter.tag].push(filter.values[j].value);
                 } else {
                     notadded++;
                 }
@@ -31,11 +58,14 @@
         }
         root.showAddFilters(shown > 0);
         root.filterSummary(summary.join(', '));
+        
+        sendFilters(query);
     }
 
     var vm = {
         filters: [
             {
+                tag: "gender",
                 name: 'Gender',
                 values: [
                     {value: 'M', text: 'Male', added: ko.observable(false)},
@@ -44,6 +74,7 @@
                 show: ko.observable(true)
             },
             {
+                tag: "agegroup",
                 name: 'Age Group',
                 values: [
                     {value: 1, text: 'Under 18', added: ko.observable(false)},
@@ -57,6 +88,7 @@
                 show: ko.observable(true)
             },
             {
+                tag: "occupation",
                 name: 'Occuption',
                 values: [
                     {value: 0, text: 'other', added: ko.observable(false)},
@@ -84,6 +116,7 @@
                 show: ko.observable(true)
             },
             {
+                tag: "genres",
                 name: 'Genres',
                 values: [
                     {value: 'Action', text: 'Action', added: ko.observable(false)},
@@ -108,6 +141,7 @@
                 show: ko.observable(true)
             },
             {
+                tag: "ratings",
                 name: 'Ratings',
                 values: [
                     {value: 1, text:'1 Star', added: ko.observable(false)},
