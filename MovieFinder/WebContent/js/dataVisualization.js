@@ -2,6 +2,8 @@
 
 
 (function() {
+	
+	
 
     function refreshFiltersList(root) {
             
@@ -143,7 +145,12 @@
     };
     ko.applyBindings(vm);
 }());
+
+
+
 $(document).ready(function() {
+		
+
 
     var menuState = false;
     $('.click-to-open').click(function() {
@@ -156,10 +163,5 @@ $(document).ready(function() {
         }
     });
     
-    // Add FB username, profile photo  and "Logout" button
-    document.getElementById('account-photo').innerHTML = (
-            '<img src="' + getParameterByName("url") + '"> ');
-
-    document.getElementById('account-info').innerHTML = (
-                    getParameterByName("name").replace("%20"," "));
+    
 });

@@ -55,3 +55,32 @@ function loginToFaceBook(){
    js.src = "//connect.facebook.net/en_US/all.js";
    ref.parentNode.insertBefore(js, ref);
  };
+ 
+ function refreshFiltersList(root) {
+     
+     var summary = [];
+     var shown = 0;
+     
+     for (var i=0; i<root.filters.length; i++) {
+         
+         var filter = root.filters[i];
+         var notadded = 0;
+         
+         for (var j=0; j<filter.values.length; j++) {
+             if (filter.values[j].added()) {
+                 summary.push(filter.values[j].text);
+             } else {
+                 notadded++;
+             }
+         }
+         
+         filter.show(notadded > 0);
+         
+         if (filter.show()) {
+             shown++;
+         }
+     }
+     root.showAddFilters(shown > 0);
+     root.filterSummary(summary.join(', '));
+ }
+ 
