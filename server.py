@@ -27,10 +27,6 @@ def index():
 def dataViz():
     return flask.send_from_directory('MovieFinder/WebContent/','dataVisualization.html')
 
-@app.route('/readme.json')
-def readme():
-   return flask.send_from_directory('MovieFinder/WebContent/','readme.json')
-
 @app.route('/channel.html')
 def channel():
     return flask.send_from_directory('MovieFinder/WebContent/','channel.html')
@@ -63,7 +59,7 @@ def getMovies():
     movies = list(movies)
     for movie in movies:
 	    movie.pop('_id')
-    return json.dumps({"movies":movies[0:50]})
+    return json.dumps({"movies":movies})
 
 if __name__ == '__main__':
     app.run(debug=True)

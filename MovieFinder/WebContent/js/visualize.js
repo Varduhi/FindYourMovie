@@ -2,6 +2,7 @@ var webWidth = 1280;
 var webHeight = 1280;
 var link,node,webOfMovies,root;
 
+
 var force = d3.layout.force()
     .on("tick", tick)
     .size([webWidth, webHeight]);
@@ -28,7 +29,7 @@ function ready(error, movies, genres) {
 	 for(var i=0;i<genres['genres'].length;i++){
 		var genre = {};
 		genre.name = genres['genres'][i];
-		genre._children = [];
+		genre.children = [];
 
 		genreNodes.push(genre);
 		genreMap[genre.name] = genre;
@@ -39,28 +40,35 @@ function ready(error, movies, genres) {
 		var movieGenres = movie['movieGenres'];
 		for(var j=0;j<movieGenres.length;j++){
 			if(movieGenres[j] in genreMap){
-				genreMap[movieGenres[j]]._children.push(movie);
+				genreMap[movieGenres[j]].children.push(movie);
 			}
 		}
 	}
 
 	root = {"name":"Me","children":genreNodes};
 	
-    console.log(genreNodes);
 	root.fixed = true;
 	root.x = webWidth/2;
 	root.y = webHeight/2 - 80;
 
 
+    var nodes = flatten(root);
+	nodes.forEach(function(d) {
+	   if(d.name != "Me"){
+	   d._children = d.children;
+	   d.children = null;
+	}
+	   
+	});
 
 	render();
 }
 
   function render(){
 	var nodes = flatten(root);
-
 	links = d3.layout.tree().links(nodes);
-
+	
+	
   // Restart the force layout.
   force
       .nodes(nodes)
@@ -126,6 +134,7 @@ function flatten(root) {
 
   function recurse(node) {
     if (node.children) node.children.forEach(recurse);
+     
     if (!node.id) node.id = ++i;
     nodes.push(node);
   }
