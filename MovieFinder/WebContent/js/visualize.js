@@ -126,7 +126,12 @@ link = webOfMovies.selectAll("line.link")
       .append("svg:title")
       .text(getTheTip);
 
-
+webOfMovies.selectAll("circle.root").append("text")
+	      .attr("dx", 12)
+	      .attr("dy", ".35em")
+	      .attr("fill","black")
+	      .attr("stroke-width",12)
+	      .text(function(d) { return d.name });
 
   // Exit any old nodes.
   node.exit().remove();
@@ -179,6 +184,37 @@ function tick() {
 
   node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
+}
+
+function updateWeb(data){
+	console.log(data);
+	var newMovies = data.movies;
+	
+	for(var i=0; i<root.children.length;i++){
+		var genre = root.children[i];
+		var children = [];
+		if(genre.children){
+			children = genre.children;
+		}
+		else
+		   children = genre._children;
+		var newChildren = [];
+		for(var j=0;j<children.length;j++){
+			var child = children[j];
+			var match = false;
+			for(var k=0;k<newMovies.length;k++){
+				if(child == newMovies[k])
+				    match = true;
+			}
+			if(match){
+			   newChildren.push(child);	
+			}
+		}
+		
+		children = newChildren;
+	}
+	
+    render();	
 }
 
 function getUrlVars()

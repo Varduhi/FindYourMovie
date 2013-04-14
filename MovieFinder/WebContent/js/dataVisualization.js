@@ -19,8 +19,8 @@
         console.log("got paramstr: " + queryStr);
         
         
-         $.get("/filter?" + queryStr, function(){
-                if (updateWeb) updateWeb();
+         $.getJSON("/filter?" + queryStr, function(data){
+                if (updateWeb) updateWeb(data);
         });
         
     }

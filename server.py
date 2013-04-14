@@ -2,7 +2,7 @@ import os
 import flask
 import pymongo
 import json
-from flask import Flask
+from flask import Flask,request
 from urlparse import urlparse
 
 app = Flask(__name__)
@@ -60,6 +60,29 @@ def getMovies():
     for movie in movies:
 	    movie.pop('_id')
     return json.dumps({"movies":movies})
+
+
+@app.route('/filter')
+def filter():
+    query = {}
+    ratings = request.args.get('ratings')
+    if(ratings is not None):
+	    query['rating'] = str(ratings.split(',')[0])
+    jobs = request.args.get('occupation')
+    if(jobs is not None):
+        query['userJob'] = str(jobs.split(',')[0])
+    gender = request.args.get('gender')
+    if(gender is not None):
+        query['userSex'] = str(gender.split(',')[0])
+    age = request.args.get('agegroup')
+    if(age is not None):
+        query['userAge'] = str(age.split(',')[0])
+    genres = request.args.get('genres')
+    results = db.ratings_collection.find(query).distinct("movieTitle")
+    movies = list(results)
+    print len(movies)
+
+    return json.dumps({'movies':movies})
 
 if __name__ == '__main__':
     app.run(debug=True)
