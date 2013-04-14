@@ -8,20 +8,20 @@ var force = d3.layout.force()
 
 
 $(document).ready(function() {
-	
+
 	webOfMovies = d3.select("#webOfMovies").append("svg")
 	    .attr("width", webWidth)
 	    .attr("height", webHeight);
-	
+
 	queue()
 	    .defer(d3.json, "movies")
 	    .defer(d3.json, "genres")
 	    .await(ready);
 
 });
-	
-function ready(error, movies, genres) { 
-	 
+
+function ready(error, movies, genres) {
+
 	 //process the data into a structure we can feed to the layout
 	 var genreNodes = [];
 	 var genreMap = {};
@@ -29,7 +29,7 @@ function ready(error, movies, genres) {
 		var genre = {};
 		genre.name = genres['genres'][i];
 		genre._children = [];
-		
+
 		genreNodes.push(genre);
 		genreMap[genre.name] = genre;
 	}
@@ -43,20 +43,20 @@ function ready(error, movies, genres) {
 			}
 		}
 	}
-	
+
 	root = {"name":"Me","children":genreNodes};
 	root.fixed = true;
 	root.x = webWidth/2;
 	root.y = webHeight/2 - 80;
-	
-	
-	
-	render();	
+
+
+
+	render();
 }
 
   function render(){
 	var nodes = flatten(root);
-	
+
 	links = d3.layout.tree().links(nodes);
 
   // Restart the force layout.
@@ -93,17 +93,27 @@ function ready(error, movies, genres) {
       .attr("r", function(d) { return 10; })
       .style("fill", color)
       .on("click", click)
-      .call(force.drag);
+      .call(force.drag)
+      .append("svg:title")
+      .text(getTheTip);
 
   // Exit any old nodes.
   node.exit().remove();
-	
-	
+
+
 }
 
 // Color leaf nodes orange, and packages white or blue.
 function color(d) {
   return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
+}
+
+function getTheTip(d) {
+  if (d._children) {
+    return d.name + " (" + d._children.length + ")";
+  } else {
+    return d.movieTitle;
+  }
 }
 
 function flatten(root) {

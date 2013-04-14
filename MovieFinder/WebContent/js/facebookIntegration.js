@@ -7,7 +7,7 @@
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
     });
-	
+
 	FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
 	   getData();
@@ -20,14 +20,14 @@
 
 
   };
-  
-  
+
+
   function login() {
     FB.login(function(response) {
         if (response.authResponse) {
-  	       getData();  
-	 
-        } 
+  	       //getData();
+	         window.location.href = "http://web-of-movies.herokuapp.com/dataVisualization.html";
+        }
     });
 }
 
@@ -38,13 +38,13 @@ function getData() {
 	 	        response.name +
 	        ' <button class="btn" onclick="FB.logout(function() { document.location.reload(); });">Logout</button>'
 	      );
-	 
+
     });
-	
+
 	FB.api('/me/picture?width=80&height=80',  function(response) {
 	     document.getElementById('account-photo').innerHTML = (
 	        '<img src="' + response.data.url + '"> ');
-  });  
+  });
 }
 
   // Load the SDK Asynchronously
