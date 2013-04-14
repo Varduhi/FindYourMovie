@@ -45,7 +45,7 @@ function ready(error, movies, genres) {
 		}
 	}
 
-	root = {"name":"Me","children":genreNodes};
+	root = {"name":"Me","children":genreNodes,"profile":};
 	
 	root.fixed = true;
 	root.x = webWidth/2;
@@ -61,6 +61,7 @@ function ready(error, movies, genres) {
 	   
 	});
 
+    console.log(getUrlVars());
 	render();
 }
 
@@ -161,4 +162,17 @@ function tick() {
 
   node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
+}
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
 }
