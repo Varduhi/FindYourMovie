@@ -1,5 +1,5 @@
 var webWidth = 1280;
-var webHeight = 800;
+var webHeight = 1280;
 var link,node,webOfMovies,root;
 
 var force = d3.layout.force()
@@ -45,6 +45,8 @@ function ready(error, movies, genres) {
 	}
 
 	root = {"name":"Me","children":genreNodes};
+	
+    console.log(genreNodes);
 	root.fixed = true;
 	root.x = webWidth/2;
 	root.y = webHeight/2 - 80;
@@ -63,10 +65,13 @@ function ready(error, movies, genres) {
   force
       .nodes(nodes)
       .links(links)
+      .linkDistance(60)
+	    .charge(-300)
       .start();
 
   // Update the links…
-  link = webOfMovies.selectAll("line.link")
+  
+link = webOfMovies.selectAll("line.link")
       .data(links, function(d) { return d.target.id; });
 
   // Enter any new links.
