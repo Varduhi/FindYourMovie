@@ -1,4 +1,17 @@
+var webWidth = 1280;
+var webHeight = 800;
+var link,node,webOfMovies,root;
+
+var force = d3.layout.force()
+    .on("tick", tick)
+    .size([webWidth, webHeight]);
+
+
 $(document).ready(function() {
+	
+	webOfMovies = d3.select("#webOfMovies").append("svg")
+	    .attr("width", webWidth)
+	    .attr("height", webHeight);
 	
 	queue()
 	    .defer(d3.json, "movies")
@@ -15,7 +28,7 @@ function ready(error, movies, genres) {
 	 for(var i=0;i<genres['genres'].length;i++){
 		var genre = {};
 		genre.name = genres['genres'][i];
-		genre.children = [];
+		genre._children = [];
 		
 		genreNodes.push(genre);
 		genreMap[genre.name] = genre;
@@ -26,30 +39,103 @@ function ready(error, movies, genres) {
 		var movieGenres = movie['movieGenres'];
 		for(var j=0;j<movieGenres.length;j++){
 			if(movieGenres[j] in genreMap){
-				genreMap[movieGenres[j]].children.push(movie);
+				genreMap[movieGenres[j]]._children.push(movie);
 			}
 		}
 	}
 	
-	var root = {"name":"Me","children":genreNodes};
-	render(root);	
+	root = {"name":"Me","children":genreNodes};
+	root.fixed = true;
+	root.x = webWidth/2;
+	root.y = webHeight/2 - 80;
+	
+	
+	
+	render();	
 }
 
-  function render(root){
+  function render(){
 	var nodes = flatten(root);
-	console.log(nodes);
+	
+	links = d3.layout.tree().links(nodes);
+
+  // Restart the force layout.
+  force
+      .nodes(nodes)
+      .links(links)
+      .start();
+
+  // Update the links…
+  link = webOfMovies.selectAll("line.link")
+      .data(links, function(d) { return d.target.id; });
+
+  // Enter any new links.
+  link.enter().insert("svg:line", ".node")
+      .attr("class", "link")
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  // Exit any old links.
+  link.exit().remove();
+
+  // Update the nodes…
+  node = webOfMovies.selectAll("circle.node")
+      .data(nodes, function(d) { return d.id; })
+      .style("fill", color);
+
+  // Enter any new nodes.
+  node.enter().append("svg:circle")
+      .attr("class", "node")
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+      .attr("r", function(d) { return 10; })
+      .style("fill", color)
+      .on("click", click)
+      .call(force.drag);
+
+  // Exit any old nodes.
+  node.exit().remove();
+	
+	
+}
+
+// Color leaf nodes orange, and packages white or blue.
+function color(d) {
+  return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
 }
 
 function flatten(root) {
   var nodes = [], i = 0;
 
   function recurse(node) {
-    if (node.children) node.size = node.children.reduce(function(p, v) { return p + recurse(v); }, 0);
+    if (node.children) node.children.forEach(recurse);
     if (!node.id) node.id = ++i;
     nodes.push(node);
-    return node.size;
   }
 
-  root.size = recurse(root);
+  recurse(root);
   return nodes;
+}
+
+function click(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  render();
+}
+
+function tick() {
+  link.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  node.attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
 }

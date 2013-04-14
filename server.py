@@ -59,7 +59,7 @@ def getMovies():
     movies = list(movies)
     for movie in movies:
 	    movie.pop('_id')
-    return json.dumps({"movies":movies})
+    return json.dumps({"movies":movies[0:500]})
 
 if __name__ == '__main__':
     app.run(debug=True)
