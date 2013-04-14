@@ -2,7 +2,7 @@
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '530614120313335', // App ID
-      channelUrl : 'http://web-of-movies.herokuapp.com/channel.html', // Channel File
+      channelUrl : 'channel.html', // Channel File
       status     : true, // check login status
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
