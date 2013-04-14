@@ -116,9 +116,8 @@ link = webOfMovies.selectAll("line.link")
 
 }
 
-// Color leaf nodes orange, and packages white or blue.
 function color(d) {
-  return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
+  return d._children ? "#6FFF00" : d.children ? "#6FFF00" : "#4D4DFF";
 }
 
 function getTheTip(d) {

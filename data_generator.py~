@@ -14,7 +14,7 @@ db.movie_collection.drop()
 def import_data():
     usersFile = open('/Users/nstehr/Desktop/ml-1m/users.dat', 'r')
     moviesFile = open('/Users/nstehr/Desktop/ml-1m/movies.dat', 'r')
-    ratingsFile = open('/Users/nstehr/Desktop/ml-1m/ratings.dat','r')
+    ratingsFile = open('/Users/nstehr/Destop/ml-1m/ratings.dat','r')
 
     userMap = {}
     movieMap = {}
@@ -58,7 +58,7 @@ def import_data():
         genres = movie[2].split('|')
         genres = [genre.rstrip() for genre in genres]
 	    
-        db.ratings_collection.insert({"userSex":userSex,"userJob":userJob,"userAge":userAge,"movieTitle":movieTitle,"movieGenres":genres,"rating":ratingValue})
+	    db.ratings_collection.insert({"userSex":userSex,"userJob":userJob,"userAge":userAge,"movieTitle":movieTitle,"movieGenres":genres,"rating":ratingValue})
 	
 
 if __name__ == '__main__':
